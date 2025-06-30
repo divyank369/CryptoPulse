@@ -1,0 +1,157 @@
+:root {
+  --bg-dark: #0b0c2a;
+  --text-dark: #ffffff;
+  --accent: #00f0ff;
+  --card-bg: #161b3d;
+  --positive: #00ff99;
+  --negative: #ff4d4d;
+
+  --bg-light: #f9f9f9;
+  --text-light: #111;
+  --card-light: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+  transition: 0.3s ease;
+}
+
+body.light {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
+  background-color: transparent;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-links a,
+.btn-login,
+.btn-create {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}
+
+.btn-theme {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px 50px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-text h1 {
+  font-size: 38px;
+}
+
+.hero-text span {
+  color: var(--accent);
+}
+
+.hero-buttons {
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #000;
+  border: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+
+.hero-graphic img {
+  width: 300px;
+  border-radius: 20px;
+}
+
+.market {
+  padding: 40px 50px;
+}
+
+#searchInput {
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 6px;
+  border: none;
+  width: 100%;
+  max-width: 400px;
+}
+
+.market-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.coin-card {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  width: 200px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.light .coin-card {
+  background-color: var(--card-light);
+  color: var(--text-light);
+}
+
+.coin-name {
+  font-weight: bold;
+}
+
+.positive {
+  color: var(--positive);
+}
+
+.negative {
+  color: var(--negative);
+}
+
+.chart-section {
+  padding: 40px 50px;
+}

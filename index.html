@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoPulse - Real-Time Crypto Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">Crypto<span>Pulse</span></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Market</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Learn</a></li>
+        <li><button id="themeToggle" class="btn-theme">🌙</button></li>
+        <li><a href="#" class="btn-login">Sign In</a></li>
+        <li><a href="#" class="btn-create">Create Account</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Track & Invest in<br><span>Real-Time Cryptocurrencies</span></h1>
+      <p>Your one-stop dashboard for live prices, market insights, and smart investments.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary">Start Tracking</button>
+        <button class="btn-secondary">Learn More</button>
+      </div>
+    </div>
+    <div class="hero-graphic">
+      <img src="Premium Photo _ Bitcoin blockchain crypto currency digital encryption, Digital money exchange, Technology network connections.jpeg" alt="Crypto Globe" />
+    </div>
+  </section>
+
+  <!-- MARKET SECTION -->
+  <section class="market">
+    <h2>Live Market Overview</h2>
+    <input type="text" id="searchInput" placeholder="Search for a coin..." />
+    <div class="market-cards" id="coinList">
+      <!-- Coin cards will be added dynamically -->
+    </div>
+  </section>
+
+  <!-- CHART SECTION -->
+  <section class="chart-section">
+    <h2>Bitcoin 7-Day Price Chart</h2>
+    <canvas id="coinChart" height="100"></canvas>
+  </section>
+
+  <!-- JS LINKS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+  <script src="themeToggle.js"></script>
+</body>
+</html>
