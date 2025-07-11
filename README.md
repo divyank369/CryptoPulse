@@ -1,2 +1,2 @@
 # CryptoPulse
-link: https://cryptopulse348.netlify.app/
+link: https://crptopulse348.netlify.app/
