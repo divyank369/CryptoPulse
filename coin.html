@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CryptoPulse - Coin Detail</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo"><a href="index.html">Crypto<span>Pulse</span></a></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="market.html">Market</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><button id="themeToggle" class="btn-theme">🌙</button></li>
+        <li><a href="signin.html" class="btn-login">Sign In</a></li>
+        <li><a href="create.html" class="btn-create">Create Account</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 id="coinName">Loading...</h1>
+      <p id="coinSymbol"></p>
+    </div>
+    <div class="hero-graphic">
+      <img id="coinImage" src="" alt="Coin Image" style="max-width: 100px; border-radius: 12px;" />
+    </div>
+  </section>
+
+  <section class="chart-section">
+    <h2>7-Day Price Chart</h2>
+    <canvas id="coinChart" height="100"></canvas>
+  </section>
+
+  <section class="portfolio-section">
+    <h2>📊 Coin Stats</h2>
+    <div class="investment-list" id="coinStats">
+      <!-- Dynamic stats will load here -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <h3>Crypto<span>Pulse</span></h3>
+        <p>Empowering investors with real-time crypto insights and tools.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="market.html">Market</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="learn.html">Learn</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>Email: support@cryptopulse.io</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><img src="icons/twitter.svg" alt="Twitter" /></a>
+          <a href="#"><img src="icons/github.svg" alt="GitHub" /></a>
+          <a href="#"><img src="icons/linkedin.svg" alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CryptoPulse. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="themeToggle.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const coinId = urlParams.get('id');
+    const apiBase = 'https://api.coingecko.com/api/v3/coins';
+
+    async function loadCoinData() {
+      try {
+        const res = await fetch(`${apiBase}/${coinId}`);
+        const data = await res.json();
+
+        document.getElementById("coinName").textContent = data.name;
+        document.getElementById("coinSymbol").textContent = `Symbol: ${data.symbol.toUpperCase()}`;
+        document.getElementById("coinImage").src = data.image.large;
+
+        document.getElementById("coinStats").innerHTML = `
+          <div class="investment-item">Rank: #${data.market_cap_rank}</div>
+          <div class="investment-item">Current Price: $${data.market_data.current_price.usd.toLocaleString()}</div>
+          <div class="investment-item">Market Cap: $${data.market_data.market_cap.usd.toLocaleString()}</div>
+          <div class="investment-item">24h Volume: $${data.market_data.total_volume.usd.toLocaleString()}</div>
+          <div class="investment-item">Circulating Supply: ${data.market_data.circulating_supply.toLocaleString()}</div>
+          <div class="investment-item">Total Supply: ${data.market_data.total_supply ? data.market_data.total_supply.toLocaleString() : "N/A"}</div>
+        `;
+      } catch (err) {
+        document.getElementById("coinName").textContent = "⚠️ Coin not found";
+        console.error("Coin data fetch error:", err);
+      }
+    }
+
+    async function loadCoinChart() {
+      try {
+        const res = await fetch(`${apiBase}/${coinId}/market_chart?vs_currency=usd&days=7`);
+        const data = await res.json();
+
+        const labels = data.prices.map(p => new Date(p[0]).toLocaleDateString());
+        const prices = data.prices.map(p => p[1]);
+
+        const ctx = document.getElementById('coinChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: [{
+              label: `${coinId} Price (USD)`,
+              data: prices,
+              borderColor: '#00f0ff',
+              fill: true,
+              tension: 0.3,
+              backgroundColor: 'rgba(0,240,255,0.1)'
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                labels: {
+                  color: document.body.classList.contains("light") ? "#000" : "#fff"
+                }
+              }
+            },
+            scales: {
+              x: { ticks: { color: document.body.classList.contains("light") ? "#000" : "#fff" } },
+              y: { ticks: { color: document.body.classList.contains("light") ? "#000" : "#fff" } }
+            }
+          }
+        });
+      } catch (error) {
+        console.error("Chart error:", error);
+      }
+    }
+
+    loadCoinData();
+    loadCoinChart();
+  </script>
+</body>
+</html>
